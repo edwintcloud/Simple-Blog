@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-watch index.js"
+    "start": "babel-watch -w assets -w views index.js"
   },
   "babel": {
-      "presets": ["env", "stage-3"]
+    "presets": [
+      "env",
+      "stage-3"
+    ]
   },
   "engines": {
     "node": ">=10.11.0"
@@ -16,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "nunjucks": "^3.1.3"
   },
