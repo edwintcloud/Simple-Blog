@@ -6,9 +6,18 @@
             <button class="delete" aria-label="close" onclick="toggleModal('register-modal')"></button>
         </header>
         <section class="modal-card-body">
+            <form onsubmit="event.preventDefault();register()">
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email input" value="">
+                    <input class="input" type="text" placeholder="Screen Name" name="screenName" autocomplete="username">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" placeholder="Email" name="email" autocomplete="email">
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -16,24 +25,34 @@
             </div>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password">
+                    <input class="input" type="password" name="password" placeholder="Password" autocomplete="new-password" pattern=".{6,}" title="6 characters minimum">
                     <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                     </span>
                 </p>
             </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Confirm Password" autocomplete="new-password" pattern=".{6,}" title="6 characters minimum">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </p>
+            </div>
+
         </section>
         <footer class="modal-card-foot buttons is-right">
             <p class="control">
-              <a class="button is-link">
+              <button class="button is-link" type="submit">
                 <span class="icon">
                   <i class="fas fa-user-plus"></i>
                 </span>
                 <span>
                   Register
                 </span>
-              </a>
+            </button>
             </p>
+            </form>
         </footer>
     </div>
 </div>
