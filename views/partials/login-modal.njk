@@ -6,10 +6,9 @@
             <button class="delete" aria-label="close" onclick="toggleModal('login-modal')"></button>
         </header>
         <section class="modal-card-body">
-            <form onsubmit="event.preventDefault();login()">
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email" name="email" autocomplete="username">
+                    <input class="input" type="email" placeholder="Email" name="email" autocomplete="email">
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -26,7 +25,7 @@
         </section>
         <footer class="modal-card-foot buttons is-right">
             <p class="control">
-              <button class="button is-success" type="submit" onclick="login()">
+              <button class="button is-success" onclick="login()">
                 <span class="icon">
                   <i class="fas fa-sign-in-alt"></i>
                 </span>

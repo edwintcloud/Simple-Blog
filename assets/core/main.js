@@ -25,14 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // toggle show/hide modal by id
 function toggleModal(id) {
-    const inputs = document.querySelectorAll(`#${id} input`)
-    for(var i = 0;i < inputs.length;i++) {
-        inputs[i].required ? inputs[i].required = false : inputs[i].required = true
-    }
-    setTimeout(function() {
-        document.getElementById(id).classList.toggle('is-active')
-        document.getElementById(id).querySelector(`input`).focus()
-    }, 0)
+    document.getElementById(id).classList.toggle('is-active')
+    document.getElementById(id).querySelector(`input`).focus()
 }
 
 // get modal inputs and return as an object
@@ -65,11 +59,12 @@ function logout() {
 
 // register user
 function register() {
-    axios.post(`/users`, getInputs('register-modal')).then((res) => {
-        if(res.data.reasons) {
-
-        } else {
-            location.reload()
-        }
-    })
+    console.log(getInputs('register-modal'))
+    // axios.post(`/users`, getInputs('register-modal')).then((res) => {
+    //     if(res.data.reasons) {
+    //
+    //     } else {
+    //         location.reload()
+    //     }
+    // })
 }
