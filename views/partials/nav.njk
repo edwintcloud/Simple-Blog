@@ -33,24 +33,37 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="field is-grouped">
-          <p class="control">
-            <a class="button is-link" onclick="toggleModal('register-modal')">
-              <span class="icon">
-                <i class="fas fa-user-plus"></i>
-              </span>
-              <span>
-                Register
-              </span>
-            </a>
-          </p>
-          <p class="control">
-            <a class="button is-success" onclick="toggleModal('login-modal')">
-              <span class="icon">
-                <i class="fas fa-sign-in-alt"></i>
-              </span>
-              <span>Login</span>
-            </a>
-          </p>
+            {% if session.userId%}
+                <p class="control">
+                  <a class="button is-danger" onclick="logout()">
+                    <span class="icon">
+                      <i class="fas fa-sign-out-alt"></i>
+                    </span>
+                    <span>
+                      Logout
+                    </span>
+                  </a>
+                </p>
+            {% else %}
+                <p class="control">
+                  <a class="button is-link" onclick="showModal('register-modal')">
+                    <span class="icon">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                    <span>
+                      Register
+                    </span>
+                  </a>
+                </p>
+                <p class="control">
+                  <a class="button is-success" onclick="showModal('login-modal')">
+                    <span class="icon">
+                      <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                    <span>Login</span>
+                  </a>
+                </p>
+            {% endif %}
         </div>
       </div>
     </div>

@@ -44,7 +44,8 @@ UserSchema.statics.authenticate = async function(email, password) {
         if (member.length < 1) {
             return { reason: `Email not found. Maybe you mistyped something?` }
         } else {
-            if(bcrypt.compare(password, member[0].password)) {
+            const match = await bcrypt.compare(password, member[0].password)
+            if(match) {
                 return member[0]
             } else {
                 return { reason: `Invalid Password. Please try again!` }
