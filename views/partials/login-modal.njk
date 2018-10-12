@@ -1,0 +1,37 @@
+<div class="modal has-background-black" id="login-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Login</p>
+            <button class="delete" aria-label="close" onclick="toggleModal('login-modal')"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" placeholder="Email input" value="">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </p>
+            </div>
+        </section>
+        <footer class="modal-card-foot buttons is-right">
+            <p class="control">
+              <a class="button is-success" onclick="showModal('login-modal')">
+                <span class="icon">
+                  <i class="fas fa-sign-in-alt"></i>
+                </span>
+                <span>Login</span>
+              </a>
+            </p>
+        </footer>
+    </div>
+</div>

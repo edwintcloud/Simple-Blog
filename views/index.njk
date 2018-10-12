@@ -4,16 +4,27 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Simple Blog</title>
+        <title>{{ blogName }}</title>
+        <link rel="stylesheet" href="/core/fontawesome.min.css">
+        <link rel="stylesheet" href="/core/bulma.min.css">
         <link rel="stylesheet" href="/core/main.css">
     </head>
     <body>
-            <div class="container">
+        {% block nav %}
+            {% include "./partials/nav.njk" %}
+        {% endblock %}
+
+            <div class="container body-container">
                 {% block body %}
                     {% include "./modules/posts/posts.njk" %}
                 {% endblock %}
+
+                {% block modals %}
+                    {% include "./partials/login-modal.njk" %}
+                    {% include "./partials/register-modal.njk" %}
+                {% endblock %}
             </div>
+        <script src="/core/fontawesome.min.js" charset="utf-8"></script>
         <script src="/core/main.js" charset="utf-8"></script>
-        <script src="/core/font-awesome.js" charset="utf-8"></script>
     </body>
 </html>
