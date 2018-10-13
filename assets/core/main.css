@@ -23,3 +23,9 @@
     float: right;
     text-align: right;
 }
+
+.modal-card {
+    align-self: flex-start;
+    margin-top: 150px;
+    width: 500px;
+}
