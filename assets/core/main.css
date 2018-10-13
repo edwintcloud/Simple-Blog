@@ -1,3 +1,25 @@
 .body-container {
     margin: 57px 10px 10px 10px
 }
+
+#user-nav-btn {
+    width: 100%;
+}
+
+#user-nav-btn .icon {
+    position: relative;
+    float: left;
+    margin-right: auto;
+}
+
+#user-nav-btn span:last-child {
+    margin-right: 40px;
+    margin-left: 20px;
+}
+
+#new-post-btn {
+    margin-left: auto;
+    position: relative;
+    float: right;
+    text-align: right;
+}

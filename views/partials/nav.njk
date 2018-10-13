@@ -33,20 +33,45 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="field is-grouped">
-            {% if session.userId%}
-                <p class="control">
-                  <a class="button is-danger" onclick="logout()">
-                    <span class="icon">
-                      <i class="fas fa-sign-out-alt"></i>
-                    </span>
-                    <span>
-                      Logout
-                    </span>
+            {% if session.userId %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="button is-link navbar-link is-rounded is-outlined" id="user-nav-btn">
+                      <span class="icon">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    <span> {{ session.screenName }} </span>
                   </a>
-                </p>
+                  <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="/">
+                        <span class="icon">
+                          <i class="fas fa-user-circle"></i>
+                        </span>
+                      <span>My Profile</span>
+                    </a>
+                    <a class="navbar-item" href="/">
+                        <span class="icon">
+                          <i class="fas fa-newspaper"></i>
+                        </span>
+                      <span>Posts</span>
+                    </a>
+                    <a class="navbar-item" href="/">
+                        <span class="icon">
+                          <i class="fas fa-comments"></i>
+                        </span>
+                      <span>Comments</span>
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" onclick="logout()">
+                        <span class="icon">
+                          <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                      <span>Logout</span>
+                    </a>
+                  </div>
+              </div>
             {% else %}
                 <p class="control">
-                  <a class="button is-link" onclick="showModal('register-modal')">
+                  <a class="button is-link is-outlined is-rounded" onclick="showModal('register-modal')">
                     <span class="icon">
                       <i class="fas fa-user-plus"></i>
                     </span>
@@ -56,7 +81,7 @@
                   </a>
                 </p>
                 <p class="control">
-                  <a class="button is-success" onclick="showModal('login-modal')">
+                  <a class="button is-success is-outlined is-rounded" onclick="showModal('login-modal')">
                     <span class="icon">
                       <i class="fas fa-sign-in-alt"></i>
                     </span>
