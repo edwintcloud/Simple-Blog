@@ -6,7 +6,7 @@ Make sure you have [Node.js](http://nodejs.org/) >= 10.11.0 installed.
 
 ```sh
 git clone https://github.com/edwintcloud/Simple-Blog.git
-cd Charity-Tracker
+cd Simple-Blog
 npm i && npm start
 ```
 
