@@ -1,7 +1,106 @@
 {% block body %}
     <div class="columns">
-        <div class="column is-four-fifths">Posts</div>
+        <div class="column is-four-fifths">
+            <div class="columns is-multiline">
+                {% for i in range(0,8) %}
+                <div class="column is-half">
+                    <div class="card">
+                        <header class="card-header has-background-light">
+                            <section class="hero">
+                                <div class="hero-body">
+                                    <div class="container">
+                                        <h1 class="title" style="margin-bottom:2px;">
+                                            Title
+                                        </h1>
+                                        <nav class="level" style="margin-left:5px;">
+                                            <div class="level-left">
+                                                <div class="level-item">
+                                                    <span class="icon is-small is-left">
+                                                        <i class="fas fa-user-circle" aria-hidden="true"></i>
+                                                    </span>
+                                                    <span style="margin-left: 8px;">by: Author on Apr 22</span>
+                                                </div>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </section>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a href="#" class="card-footer-item">View</a>
+                        </footer>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
 
-        <div class="column">Categories</div>
+
+
+
+
+
+        <div class="column">
+            <nav class="panel">
+                <p class="panel-heading">
+                    Categories
+                </p>
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <input class="input is-small" type="text" placeholder="search">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </span>
+                    </p>
+                </div>
+                <a class="panel-block is-active">
+                    <span class="panel-icon">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    bulma
+                </a>
+                <a class="panel-block">
+                    <span class="panel-icon">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    marksheet
+                </a>
+                <a class="panel-block">
+                    <span class="panel-icon">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    minireset.css
+                </a>
+                <a class="panel-block">
+                    <span class="panel-icon">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    jgthms.github.io
+                </a>
+                <a class="panel-block">
+                    <span class="panel-icon">
+                        <i class="fas fa-code-branch" aria-hidden="true"></i>
+                    </span>
+                    daniellowtw/infboard
+                </a>
+                <a class="panel-block">
+                    <span class="panel-icon">
+                        <i class="fas fa-code-branch" aria-hidden="true"></i>
+                    </span>
+                    mojs
+                </a>
+                <div class="panel-block">
+                    <button class="button is-link is-outlined is-fullwidth">
+                        reset all filters
+                    </button>
+                </div>
+            </nav>
+        </div>
     </div>
 {% endblock %}

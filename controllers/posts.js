@@ -23,3 +23,7 @@ exports.new = (req, res) => {
         console.error(e.message)
     })
 }
+
+exports.create = (req, res) => {
+    res.render('modules/posts/posts-show')
+}
