@@ -43,10 +43,10 @@ function hideModal(id) {
     document.getElementById(id).classList.remove('is-active')
 }
 
-// get modal inputs and return as an object
+// get inputs and return as an object
 function getInputs(id) {
     var result = {}
-    const inputs = document.querySelectorAll(`#${id} input`)
+    const inputs = document.querySelectorAll(`#${id} [name]`)
     for(var i = 0;i < inputs.length;i++) {
         result[inputs[i].name] = inputs[i].value
     }
@@ -231,4 +231,13 @@ function register() {
         }
     })
 }
+}
+
+// creates new post
+function newPost() {
+    const data = getInputs('new-post-panel')
+    if(data.title == '' || data.content == '') return
+    axios.post('/posts', data).then((res) => {
+        window.location.href = `/posts?_id=${res.data._id}`
+    })
 }

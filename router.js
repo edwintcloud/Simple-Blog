@@ -13,12 +13,17 @@ router.use((req, res, next) => {
 
 // posts routes
 router.get('/', posts.get)
+router.get('/posts', posts.get)
 router.get('/posts/new', posts.create)
+router.post('/posts', posts.new)
 
 // users routes
 router.post('/users', users.create)
 router.post('/users/login', users.login)
 router.post('/users/logout', users.logout)
+
+// catch all redirect to 404
+router.all('*', (req,res) => { res.render('404', { reason: 'Page not found!' }) })
 
 // export our router to be used by app
 module.exports = router

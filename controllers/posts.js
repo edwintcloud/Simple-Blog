@@ -3,11 +3,25 @@ import Post from '../models/post'
 import Comment from '../models/comment'
 
 // get all our post and render the index
-exports.get = async (req, res) => {
+exports.get = (req, res) => {
     try {
-        const posts = await Post.find()
-        const comments = await Comment.find()
-        res.render('index', { posts: posts, comments: comments })
+        if(req.query._id) {
+
+            // make sure our query term is a valid object id
+            if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+                return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+            }
+
+            //const comments = await Comment.find()
+            Post.find({ _id: req.query._id }).limit(1).then((posts) => {
+                res.render('posts-show', { post: posts[0] })
+            })
+        } else {
+            Post.find().then((posts) => {
+                res.render('index', { posts: posts })
+                console.log(posts)
+            })
+        }
     } catch(e) {
         return console.error(e.message)
     }
@@ -25,5 +39,5 @@ exports.new = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    res.render('modules/posts/posts-show')
+    res.render('posts-new')
 }
