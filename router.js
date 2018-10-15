@@ -9,6 +9,7 @@ import comments from './controllers/comments'
 router.use((req, res, next) => {
     res.locals.blogName = "My Blog"
     res.locals.session = req.session
+    res.locals.url = req.originalUrl.split('?')[0]
     next()
 })
 

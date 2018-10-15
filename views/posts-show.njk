@@ -48,20 +48,20 @@
                     {% if session.screenName == comment.author %}
                         <small><a>Edit</a> · <a>Delete</a> · {{ comment.updatedAt | date('LLL') }}</small>
                     {% else %}
-                        <small> · {{ comment.updatedAt | date('LLL') }}</small>    
+                        <small> · {{ comment.updatedAt | date('LLL') }}</small>
                     {% endif %}
                   </p>
                 </div>
               </div>
             </article>
         {% endfor %}
-<article class="media">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="https://bulma.io/images/placeholders/128x128.png">
-    </p>
-  </figure>
   {% if session.screenName %}
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+      </p>
+    </figure>
       <div class="media-content" id="add-comment">
         <div class="field">
           <p class="control">
@@ -76,9 +76,9 @@
           </p>
         </div>
       </div>
+      </article>
   {% endif %}
-
-</article></div>
+</div>
     </footer>
 </div>
 {% endblock %}

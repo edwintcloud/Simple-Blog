@@ -2,6 +2,18 @@
       <div class="navbar-item" id="footer-nav-btn">
         <div class="field is-grouped">
             {% if session.userId %}
+                {% if url == '/posts' %}
+                <p class="control">
+                  <a class="button is-success is-rounded is-outlined" onclick="newCommentBtn()" >
+                    <span class="icon">
+                      <i class="fas fa-plus"></i>
+                    </span>
+                    <span>
+                      New Comment
+                    </span>
+                  </a>
+                </p>
+                {% endif %}
                 {% if post._id and post.author == session.screenName %}
                     <p class="control">
                       <a class="button is-danger is-rounded is-outlined" post-id="{{ post._id }}" author="{{ post.author }}" onclick="deletePost()" >
@@ -13,28 +25,7 @@
                         </span>
                       </a>
                     </p>
-                {% elif post._id %}
-                    <p class="control">
-                      <a class="button is-success is-rounded is-outlined" onclick="newCommentBtn()" >
-                        <span class="icon">
-                          <i class="fas fa-plus"></i>
-                        </span>
-                        <span>
-                          New Comment
-                        </span>
-                      </a>
-                    </p>
-                    <p class="control">
-                      <a class="button is-success is-rounded is-outlined" onclick="location.href='/posts/new'" >
-                        <span class="icon">
-                          <i class="fas fa-plus"></i>
-                        </span>
-                        <span>
-                          New Post
-                        </span>
-                      </a>
-                    </p>
-                {% else %}
+                {% elif url != '/posts/new' %}
                 <p class="control">
                   <a class="button is-success is-rounded is-outlined" onclick="location.href='/posts/new'" >
                     <span class="icon">

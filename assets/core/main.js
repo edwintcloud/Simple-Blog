@@ -276,3 +276,7 @@ function newCommentBtn() {
     document.getElementById('add-comment').scrollIntoView()
     document.querySelector('#add-comment textarea').focus()
 }
+
+function getURL() {
+  return location.protocol + '//' + location.host + location.pathname
+}
