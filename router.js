@@ -3,6 +3,7 @@ const router = require('express').Router()
 // import our controllers
 import posts from './controllers/posts'
 import users from './controllers/users'
+import comments from './controllers/comments'
 
 // router middleware that will be run on all requests
 router.use((req, res, next) => {
@@ -20,6 +21,9 @@ router.route('/posts')
 router.get('/', posts.get)
 router.get('/posts/new', posts.new)
 router.get('/posts/edit', posts.edit)
+
+// comments routes
+router.post('/comments', comments.create)
 
 // users routes
 router.post('/users', users.create)

@@ -3,16 +3,37 @@
         <div class="field is-grouped">
             {% if session.userId %}
                 {% if post._id and post.author == session.screenName %}
-                <p class="control">
-                  <a class="button is-danger is-rounded is-outlined" post-id="{{ post._id }}" onclick="deletePost()" >
-                    <span class="icon">
-                      <i class="fas fa-trash"></i>
-                    </span>
-                    <span>
-                      Delete Post
-                    </span>
-                  </a>
-                </p>
+                    <p class="control">
+                      <a class="button is-danger is-rounded is-outlined" post-id="{{ post._id }}" author="{{ post.author }}" onclick="deletePost()" >
+                        <span class="icon">
+                          <i class="fas fa-trash"></i>
+                        </span>
+                        <span>
+                          Delete Post
+                        </span>
+                      </a>
+                    </p>
+                {% elif post._id %}
+                    <p class="control">
+                      <a class="button is-success is-rounded is-outlined" onclick="newCommentBtn()" >
+                        <span class="icon">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                        <span>
+                          New Comment
+                        </span>
+                      </a>
+                    </p>
+                    <p class="control">
+                      <a class="button is-success is-rounded is-outlined" onclick="location.href='/posts/new'" >
+                        <span class="icon">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                        <span>
+                          New Post
+                        </span>
+                      </a>
+                    </p>
                 {% else %}
                 <p class="control">
                   <a class="button is-success is-rounded is-outlined" onclick="location.href='/posts/new'" >

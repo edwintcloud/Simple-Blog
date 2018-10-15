@@ -261,3 +261,18 @@ function deletePost() {
         })
     }
 }
+
+// create comment
+function addComment() {
+    const comment = getInputs('add-comment')
+    console.log(comment);
+    axios.post(`/comments`, comment).then((res) => {
+        location.reload()
+    })
+}
+
+// new comment button action
+function newCommentBtn() {
+    document.getElementById('add-comment').scrollIntoView()
+    document.querySelector('#add-comment textarea').focus()
+}
