@@ -4,7 +4,7 @@
   "description": "A simple blog in node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --require babel-core/register --exit tests/*",
     "start": "babel-watch -w assets -w views index.js"
   },
   "babel": {
