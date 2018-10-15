@@ -17,49 +17,41 @@ chai.use(chaiHttp)
 describe('Users', () => {
 
     // delete our test users when the tests are finished
-    after(async () => {
-        try {
-            await User.deleteMany({ screenName: 'chaiTestUser' }).exec()
-        } catch (e) {
-            throw e
-        }
+    after( () => {
+        User.deleteMany({ screenName: 'chaiTestUser' }).exec((err) => {
+            console.log(err)
+        })
     })
 
     // CREATE TEST
-    it('should create a single user on /users POST', async () => {
-        try {
-            const user = await User.create(new User(testUser))
-            chai.request(app).post(`/users`).send(user).then((res) => {
-                res.should.have.status(200)
-                res.should.be.json
-            })
-        } catch (e) {
-            throw e
-        }
+    it('should create a single user on /users POST', (done) => {
+        chai.request(app).post(`/users`).send(testUser).end((err, res) => {
+            res.should.have.status(200)
+            res.should.not.be.json
+            res.headers['set-cookie'].should.not.be.empty
+            done()
+        })
     })
 
     // LOGIN TEST
-    it('should set session for a single user on /users/login POST', async () => {
-        try {
-            const user = await User.create(new User(testUser))
-            chai.request(app).post(`/users/login`).send(user).then((res) => {
+    it('should set session for a single user on /users/login POST', (done) => {
+        const user = new User(testUser)
+        user.save((err, user) => {
+            chai.request(app).post(`/users/login`).send(testUser).end((err, res) => {
                 res.should.have.status(200)
+                res.should.not.be.json
                 res.headers['set-cookie'].should.not.be.empty
+                done()
             })
-        } catch (e) {
-            throw e
-        }
+        })
     })
 
     // LOGOUT TEST
-    it('should destroy session on /users/logout POST', async () => {
-        try {
-            chai.request(app).post(`/users/logout`).then((res) => {
-                res.should.have.status(200)
-                should.equal(res.headers['set-cookie'], undefined)
-            })
-        } catch (e) {
-            throw e
-        }
+    it('should destroy session on /users/logout POST', (done) => {
+        chai.request(app).post(`/users/logout`).end((err, res) => {
+            res.should.have.status(200)
+            should.equal(res.headers['set-cookie'], undefined)
+            done()
+        })
     })
 })

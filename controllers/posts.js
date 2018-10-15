@@ -12,14 +12,13 @@ exports.get = (req, res) => {
                 return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
             }
 
-            //const comments = await Comment.find()
+            // const comments = await Comment.find()
             Post.find({ _id: req.query._id }).limit(1).then((posts) => {
                 res.render('posts-show', { post: posts[0] })
             })
         } else {
             Post.find().then((posts) => {
                 res.render('index', { posts: posts })
-                console.log(posts)
             })
         }
     } catch(e) {
