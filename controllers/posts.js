@@ -61,7 +61,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     Post.deleteOne({ _id: req.body._id }).then((post) => {
         res.status(200).send()
-    })catch((e) => {
+    }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)
     })

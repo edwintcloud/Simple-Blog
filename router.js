@@ -14,8 +14,8 @@ router.use((req, res, next) => {
 // posts routes
 router.get('/', posts.get)
 router.get('/posts', posts.get)
-router.get('/posts/new', posts.create)
-router.post('/posts', posts.new)
+router.get('/posts/new', posts.new)
+router.post('/posts', posts.create)
 
 // users routes
 router.post('/users', users.create)
