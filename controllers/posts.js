@@ -28,7 +28,7 @@ exports.get = (req, res) => {
 }
 
 // create a new post
-exports.new = (req, res) => {
+exports.create = (req, res) => {
     Post.create(req.body).then((post) => {
         res.status(200).send(post)
     }).catch((e) => {
@@ -37,6 +37,32 @@ exports.new = (req, res) => {
     })
 }
 
-exports.create = (req, res) => {
+// render new post form
+exports.new = (req, res) => {
     res.render('posts-new')
+}
+
+// render edit post
+exports.edit = (req, res) => {
+    res.render('posts-edit')
+}
+
+// update post
+exports.update = (req, res) => {
+    Post.updateOne({ _id: req.body._id }, req.body).then((post) => {
+        res.status(200).send(post)
+    }).catch((e) => {
+        res.status(400).send(e.message)
+        console.error(e.message)
+    })
+}
+
+// delete posts
+exports.delete = (req, res) => {
+    Post.deleteOne({ _id: req.body._id }).then((post) => {
+        res.status(200).send()
+    })catch((e) => {
+        res.status(400).send(e.message)
+        console.error(e.message)
+    })
 }
