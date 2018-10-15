@@ -1,7 +1,9 @@
 {% extends "index.njk" %}
 
 {% block body %}
+{% if session.userId %}
 <nav class="panel" id="new-post-panel">
+<input type="hidden" name="author" value="{{ session.screenName }}">
 <p class="panel-heading">
 Create a Post
 </p>
@@ -31,4 +33,18 @@ Create a Post
 </div>
 
 </nav>
+{% else %}
+<nav class="panel" id="new-post-panel">
+<input type="hidden" name="author" value="{{ session.screenName }}">
+<p class="panel-heading">
+Create a Post
+</p>
+<div class="panel-block" style="height:300px;">
+    <div class="container has-text-centered is-size-3">
+        Your session has expired. Please <a onclick="showModal('login-modal')">login</a>!
+    </div>
+</div>
+
+</nav>
+{% endif %}
 {% endblock %}

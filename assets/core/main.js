@@ -236,8 +236,28 @@ function register() {
 // creates new post
 function newPost() {
     const data = getInputs('new-post-panel')
+    console.log(data)
     if(data.title == '' || data.content == '') return
     axios.post('/posts', data).then((res) => {
         window.location.href = `/posts?_id=${res.data._id}`
     })
+}
+
+// edits post
+function editPost() {
+    const data = getInputs('edit-post-panel')
+    if(data.title == '' || data.content == '') return
+    axios.put(`/posts?_id=${data.id}`, data).then((res) => {
+        window.location.href = `/posts?_id=${data.id}`
+    })
+}
+
+// delete post
+function deletePost() {
+    const id = document.querySelector('#footer-nav-btn .button').getAttribute('post-id')
+    if(confirm("Are you sure you want to delete this post?")) {
+        axios.delete(`/posts?_id=${id}`).then((res) => {
+            window.location.href = `/`
+        })
+    }
 }

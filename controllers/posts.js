@@ -16,6 +16,12 @@ exports.get = (req, res) => {
             Post.find({ _id: req.query._id }).limit(1).then((posts) => {
                 res.render('posts-show', { post: posts[0] })
             })
+        } else if(req.query.screenName) {
+            Post.find({ author: req.query.screenName }).then((posts) => {
+                res.render('index', { posts: posts })
+            }).catch((e) => {
+                console.error(e.message)
+            })
         } else {
             Post.find().then((posts) => {
                 res.render('index', { posts: posts })
@@ -44,13 +50,29 @@ exports.new = (req, res) => {
 
 // render edit post
 exports.edit = (req, res) => {
-    res.render('posts-edit')
+
+    // make sure our query term is a valid object id
+    if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+        return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+    }
+
+    Post.find({ _id: req.query._id }).limit(1).then((posts) => {
+        res.render('posts-edit', { post: posts[0] })
+    }).catch((e) => {
+        console.error(e.message)
+    })
 }
 
 // update post
 exports.update = (req, res) => {
-    Post.updateOne({ _id: req.body._id }, req.body).then((post) => {
-        res.status(200).send(post)
+
+    // make sure our query term is a valid object id
+    if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+        return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+    }
+
+    Post.updateOne({ _id: req.query._id }, req.body).then((result) => {
+        res.status(200).send(result)
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)
@@ -59,8 +81,14 @@ exports.update = (req, res) => {
 
 // delete posts
 exports.delete = (req, res) => {
-    Post.deleteOne({ _id: req.body._id }).then((post) => {
-        res.status(200).send()
+
+    // make sure our query term is a valid object id
+    if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+        return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+    }
+
+    Post.deleteOne({ _id: req.query._id }).then((result) => {
+        res.status(200).send(result)
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)

@@ -1,7 +1,19 @@
 <nav class="navbar is-dark is-fixed-bottom">
-      <div class="navbar-item" id="new-post-btn">
+      <div class="navbar-item" id="footer-nav-btn">
         <div class="field is-grouped">
             {% if session.userId %}
+                {% if post._id and post.author == session.screenName %}
+                <p class="control">
+                  <a class="button is-danger is-rounded is-outlined" post-id="{{ post._id }}" onclick="deletePost()" >
+                    <span class="icon">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span>
+                      Delete Post
+                    </span>
+                  </a>
+                </p>
+                {% else %}
                 <p class="control">
                   <a class="button is-success is-rounded is-outlined" onclick="location.href='/posts/new'" >
                     <span class="icon">
@@ -12,6 +24,7 @@
                     </span>
                   </a>
                 </p>
+                {% endif %}
             {% endif %}
         </div>
       </div>

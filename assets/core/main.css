@@ -13,11 +13,11 @@
 }
 
 #user-nav-btn span:last-child {
-    margin-right: 40px;
-    margin-left: 20px;
+    margin-right: 48px;
+    margin-left: 30px;
 }
 
-#new-post-btn {
+#footer-nav-btn {
     margin-left: auto;
     position: relative;
     float: right;

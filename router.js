@@ -12,10 +12,14 @@ router.use((req, res, next) => {
 })
 
 // posts routes
+router.route('/posts')
+    .get(posts.get)
+    .post(posts.create)
+    .put(posts.update)
+    .delete(posts.delete)
 router.get('/', posts.get)
-router.get('/posts', posts.get)
 router.get('/posts/new', posts.new)
-router.post('/posts', posts.create)
+router.get('/posts/edit', posts.edit)
 
 // users routes
 router.post('/users', users.create)

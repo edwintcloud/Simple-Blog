@@ -5,6 +5,7 @@ import nunjucks from 'nunjucks'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import mongoose from 'mongoose'
+import dateFilter from 'nunjucks-date-filter'
 const MongoStore = require('connect-mongo')(session)
 const app = express()
 
@@ -30,10 +31,12 @@ app.use(session({
 }))
 
 // configure nunjucks
-nunjucks.configure('views', {
+var env = nunjucks.configure('views', {
     autoescape: true,
     express: app
 })
+env.addFilter('date', dateFilter)
+
 
 // configure express
 app.set('view engine', 'njk')

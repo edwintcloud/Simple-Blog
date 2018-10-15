@@ -1,4 +1,5 @@
 import User from '../models/user'
+import Post from '../models/post'
 
 // creates a user
 exports.create = (req, res) => {
