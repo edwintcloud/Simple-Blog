@@ -3,12 +3,13 @@ import Comment from '../models/comment'
 // get all comments or if id specified get one
 exports.get = (req, res) => {
 
-    // make sure our query term is a valid object id
-    if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
-        return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
-    }
-
     if(req.query._id) {
+
+        // make sure our query term is a valid object id
+        if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+            return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+        }
+        
         Comment.find({ _id: req.query._id }).limit(1).then((comments) => {
             res.status(200).send(comments[0])
         }).catch((e) => {
@@ -23,16 +24,6 @@ exports.get = (req, res) => {
             console.error(e.message)
         })
     }
-}
-
-// render new comments form
-exports.new = (req, res) => {
-    res.render('comments-new')
-}
-
-// render edit comment form
-exports.edit = (req, res) => {
-    res.render('comments-edit')
 }
 
 // create a new comment
