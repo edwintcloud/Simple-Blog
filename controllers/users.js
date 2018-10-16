@@ -1,6 +1,11 @@
 import User from '../models/user'
 import Post from '../models/post'
 
+// gets a users profile by id
+exports.profile = (req, res) => {
+    res.render('users-profile')
+}
+
 // creates a user
 exports.create = (req, res) => {
     User.register(req.body).then((user) => {

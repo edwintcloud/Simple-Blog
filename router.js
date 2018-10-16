@@ -35,6 +35,7 @@ router.route('/comments')
 router.post('/users', users.create)
 router.post('/users/login', users.login)
 router.post('/users/logout', users.logout)
+router.get('/users/profile', users.profile)
 
 // api routes
 router.get('/api/comments', api.getComments)
