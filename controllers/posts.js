@@ -23,6 +23,13 @@ exports.get = (req, res) => {
             }).catch((e) => {
                 console.error(e.message)
             })
+        } else if(req.query.search) {
+            Post.find({ $text: { $search: req.query.search } }).then((posts) => {
+                res.status(200).send(posts)
+            }).catch((e) => {
+                res.status(400).send(e.message)
+                console.error(e.message)
+            })
         } else {
             Post.find().then((posts) => {
                 res.render('index', { posts: posts })

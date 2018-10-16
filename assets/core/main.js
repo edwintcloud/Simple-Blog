@@ -1,9 +1,12 @@
-document.onkeydown = function(e) {
+document.onkeyup = function(e) {
     if(document.getElementById('register-modal').classList.contains('is-active') && e.keyCode == 13) {
         register()
     }
     if(document.getElementById('login-modal').classList.contains('is-active') && e.keyCode == 13) {
         login()
+    }
+    if(e.path[0].id == 'posts-search' && e.path[0].value != '') {
+        searchPosts(e.path[0].value)
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -337,4 +340,55 @@ function deleteComment(e) {
             e.closest('article').remove()
         })
     }
+}
+
+// search posts
+function searchPosts(term) {
+    axios.get(`/posts?search=${term}`).then((res) => {
+        if(res.data.length > 0) {
+            const date = new Date(res.data[0].updatedAt)
+            const curUser = document.getElementById('posts-search').getAttribute('current-user')
+            document.getElementById('posts').innerHTML = ''
+            for(var i = 0;i < res.data.length;i++) {
+                document.getElementById('posts').innerHTML += `
+                    <div class="column is-half">
+                    <div class="card">
+                    <header class="card-header has-background-light">
+                    <section class="hero">
+                    <div class="hero-body">
+                    <div class="container">
+                    <h1 class="title" style="margin-bottom:2px;">
+                    ${res.data[i].title}
+                    </h1>
+                    <nav class="level" style="margin-left:5px;">
+                    <div class="level-left">
+                    <div class="level-item">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                    </span>
+                    <span style="margin-left: 8px;">by: ${res.data[i].author} on ${moment(date).format('MMM D')} at ${moment(date).format('LT')}</span>
+                    </div>
+                    </div>
+                    </nav>
+                    </div>
+                    </div>
+                    </section>
+                    </header>
+                    <div class="card-content">
+                    <div class="content">
+                    ${res.data[i].content.length > 50 ? res.data[i].content.substring(0, 50).concat('...') : res.data[i].content}
+                    </div>
+                    </div>
+                    <footer class="card-footer">
+                    <a href="/posts?_id={{res.data[i]._id}}" class="card-footer-item">View</a>
+                    </footer>
+                    </div>
+                    </div>
+                `
+                if(curUser == res.data[i].author) {
+                    document.querySelectorAll('#posts footer.card-footer')[i].innerHTML += `<a href="/posts/edit?_id=${res.data[i]._id}" class="card-footer-item">Edit</a>`
+                }
+            }
+        }
+    })
 }
