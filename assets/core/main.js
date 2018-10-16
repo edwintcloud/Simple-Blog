@@ -264,19 +264,77 @@ function deletePost() {
 
 // create comment
 function addComment() {
-    const comment = getInputs('add-comment')
-    console.log(comment);
-    axios.post(`/comments`, comment).then((res) => {
+    const data = getInputs('add-comment')
+    if(data.title == '' || data.content == '') return
+    axios.post(`/comments`, data).then((res) => {
         location.reload()
     })
 }
 
 // new comment button action
 function newCommentBtn() {
+    cancelEditComment()
     document.getElementById('add-comment').scrollIntoView()
     document.querySelector('#add-comment textarea').focus()
 }
 
-function getURL() {
-  return location.protocol + '//' + location.host + location.pathname
+// edit comment link action
+function editComment(e) {
+    if(document.querySelectorAll('#add-comment button').length > 1) return
+    const commentId = e.getAttribute('comment-id')
+    axios.get(`/comments?_id=${commentId}`).then((res) => {
+        const textarea = document.querySelector('#add-comment textarea')
+        textarea.value = res.data.content
+        textarea.scrollIntoView()
+        textarea.focus()
+        const button = document.querySelector('#add-comment button')
+        button.innerHTML = 'Save'
+        button.removeAttribute('onclick')
+        button.addEventListener('click', () => {
+            updateComment(e)
+        }, { once: true })
+        const cancelBtn = document.createElement("button")
+        cancelBtn.innerHTML = 'Cancel'
+        cancelBtn.classList.add('button')
+        cancelBtn.setAttribute('onclick', 'cancelEditComment()')
+        button.parentElement.prepend(cancelBtn)
+
+
+    })
+}
+
+// cancel editing comment
+function cancelEditComment() {
+    if(document.querySelectorAll('#add-comment button').length < 2) return
+    const textarea = document.querySelector('#add-comment textarea')
+    textarea.value = ''
+    const button = document.querySelectorAll('#add-comment button')
+    button[1].innerHTML = 'Post comment'
+    button[1].setAttribute('onclick', 'addComment(this)')
+    button[0].remove()
+}
+
+// update comment
+function updateComment(e) {
+    const commentId = e.getAttribute('comment-id')
+    const data = getInputs('add-comment')
+    axios.put(`/comments?_id=${commentId}`, data).then((res) => {
+        e.closest('p').querySelector('span').innerHTML = data.content
+        const textarea = document.querySelector('#add-comment textarea')
+        textarea.value = ''
+        const button = document.querySelectorAll('#add-comment button')
+        button[1].innerHTML = 'Post comment'
+        button[1].setAttribute('onclick', 'addComment(this)')
+        button[0].remove()
+    })
+}
+
+// delete comment
+function deleteComment(e) {
+    const commentId = e.getAttribute('comment-id')
+    if(confirm("Are you sure you want to delete this comment?")) {
+        axios.delete(`/comments?_id=${commentId}`).then((res) => {
+            e.closest('article').remove()
+        })
+    }
 }

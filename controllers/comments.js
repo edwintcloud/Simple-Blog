@@ -2,6 +2,12 @@ import Comment from '../models/comment'
 
 // get all comments or if id specified get one
 exports.get = (req, res) => {
+
+    // make sure our query term is a valid object id
+    if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+        return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+    }
+
     if(req.query._id) {
         Comment.find({ _id: req.query._id }).limit(1).then((comments) => {
             res.status(200).send(comments[0])
@@ -41,8 +47,14 @@ exports.create = (req, res) => {
 
 // update a comment
 exports.update = (req, res) => {
-    Comment.updateOne({ _id: req.body._id }, req.body).then((comment) => {
-        res.status(200).send(comment)
+
+    // make sure our query term is a valid object id
+    if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
+        return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
+    }
+
+    Comment.updateOne({ _id: req.query._id }, req.body).then((result) => {
+        res.status(200).send(result)
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)
@@ -51,8 +63,9 @@ exports.update = (req, res) => {
 
 // delete a comment
 exports.delete = (req, res) => {
-    Comment.deleteOne({ _id: req.body._id }).then((comment) => {
-        res.status(200).send(comment)
+
+    Comment.deleteOne({ _id: req.query._id }).then((result) => {
+        res.status(200).send(result)
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)

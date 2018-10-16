@@ -9,7 +9,7 @@ import comments from './controllers/comments'
 router.use((req, res, next) => {
     res.locals.blogName = "My Blog"
     res.locals.session = req.session
-    res.locals.url = req.originalUrl.split('?')[0]
+    res.locals.url = req.originalUrl.split('=')[0]
     next()
 })
 
@@ -24,7 +24,11 @@ router.get('/posts/new', posts.new)
 router.get('/posts/edit', posts.edit)
 
 // comments routes
-router.post('/comments', comments.create)
+router.route('/comments')
+    .get(comments.get)
+    .post(comments.create)
+    .put(comments.update)
+    .delete(comments.delete)
 
 // users routes
 router.post('/users', users.create)

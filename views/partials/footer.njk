@@ -2,7 +2,7 @@
       <div class="navbar-item" id="footer-nav-btn">
         <div class="field is-grouped">
             {% if session.userId %}
-                {% if url == '/posts' %}
+                {% if url == '/posts?_id' %}
                 <p class="control">
                   <a class="button is-success is-rounded is-outlined" onclick="newCommentBtn()" >
                     <span class="icon">
