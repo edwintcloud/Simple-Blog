@@ -47,7 +47,7 @@ router.all('*', (req,res) => {
     if(req.is('application/json')) {
         res.send('Invalid request!')
     } else {
-        res.render('404', { reason: 'Page not found!' })
+        res.status(400).render('404', { reason: 'Page not found!' })
     }
  })
 

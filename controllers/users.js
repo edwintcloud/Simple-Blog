@@ -44,7 +44,7 @@ exports.logout = (req, res) => {
 }
 
 // process uploaded file and save compressed version on server
-exports.upload = (req, res, next) => {
+exports.upload = (req, res) => {
     if(req.query._id) {
 
         // make sure our query term is a valid object id
@@ -63,7 +63,7 @@ exports.upload = (req, res, next) => {
                     return file
                         .resize(128, 128)
                         .quality(60)
-                        .write(`assets/uploaded/${req.query._id}.${ext}`)
+                        .write(`assets/uploaded/${req.query._id}.png`)
 
                 }).catch((e) => {
                     console.error(e.message)
