@@ -1,0 +1,45 @@
+.body-container {
+    margin: 80px 10px 60px 10px
+}
+
+#user-nav-btn {
+    width: 100%;
+}
+
+#user-nav-btn .icon {
+    position: relative;
+    float: left;
+    margin-right: auto;
+}
+
+#user-nav-btn span:last-child {
+    margin-right: 48px;
+    margin-left: 30px;
+}
+
+#footer-nav-btn {
+    margin-left: auto;
+    position: relative;
+    float: right;
+    text-align: right;
+}
+
+.modal-card {
+    align-self: flex-start;
+    margin-top: 150px;
+    width: 500px;
+}
+
+.card {
+    border-radius: 4px 4px 0 0;
+}
+
+.edit-icon:hover {
+    color: blue;
+}
+.edit-icon {
+    color: black;
+}
+.panel {
+    padding-bottom: 15px;
+}
