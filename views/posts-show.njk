@@ -1,7 +1,7 @@
 {% extends "index.njk" %}
 
 {% block body %}
-<div class="card">
+<div class="card" style="margin-bottom: 75px;">
     <header class="card-header has-background-light">
         <section class="hero">
             <div class="hero-body">
@@ -20,7 +20,7 @@
                                 <a class="icon is-small edit-icon" style="margin-left:10px;" onclick="location.href='/posts/edit?_id={{ post._id }}'">
                                     <i class="fas fa-edit" aria-hidden="true"></i>
                                 </a>
-                                {% endif %}    
+                                {% endif %}
                             </div>
                         </div>
                     </nav>

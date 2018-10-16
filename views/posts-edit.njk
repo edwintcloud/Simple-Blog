@@ -3,12 +3,12 @@
 {% block body %}
 {% if session.userId %}
 <nav class="panel" id="edit-post-panel">
-    <input type="hidden" name="author" value="{{ session.screenName }}">
-    <input type="hidden" name="id" value="{{ post._id }}">
     <p class="panel-heading">
         Edit Post
     </p>
     <div class="panel-block" style="height:600px;">
+        <input type="hidden" name="author" value="{{ session.screenName }}">
+        <input type="hidden" name="id" value="{{ post._id }}">
         <div class="container">
             <div class="field">
                 <label class="label">Title</label>

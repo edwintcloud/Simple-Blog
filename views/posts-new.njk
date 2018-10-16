@@ -3,11 +3,11 @@
 {% block body %}
 {% if session.userId %}
 <nav class="panel" id="new-post-panel">
-<input type="hidden" name="author" value="{{ session.screenName }}">
 <p class="panel-heading">
 Create a Post
 </p>
 <div class="panel-block" style="height:600px;">
+    <input type="hidden" name="author" value="{{ session.screenName }}">
     <div class="container">
         <div class="field">
   <label class="label">Title</label>
