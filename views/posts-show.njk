@@ -46,12 +46,12 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <strong>{{ comment.author }}</strong>
+                    <span style="font-weight:700;">{{ comment.author }}</span>
                     <br>
                     <span>{{ comment.content }}</span>
                     <br>
                     {% if session.screenName == comment.author %}
-                        <small><a onclick="editComment(this)" comment-id='{{ comment._id }}'>Edit</a> · <a onclick="deleteComment(this)" comment-id='{{ comment._id }}'>Delete</a> · {{ comment.updatedAt | date('LLL') }}</small>
+                        <small><a onclick="editComment(this)" comment-id='{{ comment._id }}'>Edit</a> · <a onclick="deleteComment(this)" comment-id='{{ comment._id }}'>Delete</a> · <span>{{ comment.updatedAt | date('LLL') }}</span></small>
                     {% else %}
                         <small> · {{ comment.updatedAt | date('LLL') }}</small>
                     {% endif %}

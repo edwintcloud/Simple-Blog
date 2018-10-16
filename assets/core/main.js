@@ -283,53 +283,39 @@ function newCommentBtn() {
 
 // edit comment link action
 function editComment(e) {
-    if(document.querySelectorAll('#add-comment button').length > 1) return
+    var comment = e.closest('p').querySelectorAll('span')[1].innerHTML
     const commentId = e.getAttribute('comment-id')
-    axios.get(`/comments?_id=${commentId}`).then((res) => {
-        const textarea = document.querySelector('#add-comment textarea')
-        textarea.value = res.data.content
-        textarea.scrollIntoView()
-        textarea.focus()
-        const button = document.querySelector('#add-comment button')
-        button.innerHTML = 'Save'
-        button.removeAttribute('onclick')
-        button.addEventListener('click', () => {
-            updateComment(e)
-        }, { once: true })
-        const cancelBtn = document.createElement("button")
-        cancelBtn.innerHTML = 'Cancel'
-        cancelBtn.classList.add('button')
-        cancelBtn.setAttribute('onclick', 'cancelEditComment()')
-        button.parentElement.prepend(cancelBtn)
-
-
-    })
+    e.closest('p').querySelectorAll('span')[1].innerHTML = `<textarea class="textarea" name="content">${comment}</textarea>`
+    const buttons = e.parentElement.querySelectorAll('a')
+    buttons[0].removeAttribute('onclick')
+    buttons[1].removeAttribute('onclick')
+    buttons[0].innerHTML = 'Cancel'
+    buttons[1].innerHTML = 'Save'
+    buttons[0].addEventListener('click', () => {
+        e.closest('p').querySelectorAll('span')[1].innerHTML = comment
+        cancelEditComment(e)
+    }, { once: true })
+    buttons[1].addEventListener('click', () => {
+        comment = e.closest('p').querySelectorAll('span textarea')[0].value
+        axios.put(`/comments?_id=${commentId}`, { content: comment }).then((res) => {
+            e.closest('p').querySelectorAll('span')[1].innerHTML = comment
+            cancelEditComment(e)
+        })
+    }, { once: true })
 }
 
 // cancel editing comment
-function cancelEditComment() {
-    if(document.querySelectorAll('#add-comment button').length < 2) return
-    const textarea = document.querySelector('#add-comment textarea')
-    textarea.value = ''
-    const button = document.querySelectorAll('#add-comment button')
-    button[1].innerHTML = 'Post comment'
-    button[1].setAttribute('onclick', 'addComment(this)')
-    button[0].remove()
-}
-
-// update comment
-function updateComment(e) {
+function cancelEditComment(e) {
+    const buttons = e.parentElement.querySelectorAll('a')
     const commentId = e.getAttribute('comment-id')
-    const data = getInputs('add-comment')
-    axios.put(`/comments?_id=${commentId}`, data).then((res) => {
-        e.closest('p').querySelector('span').innerHTML = data.content
-        const textarea = document.querySelector('#add-comment textarea')
-        textarea.value = ''
-        const button = document.querySelectorAll('#add-comment button')
-        button[1].innerHTML = 'Post comment'
-        button[1].setAttribute('onclick', 'addComment(this)')
-        button[0].remove()
+    buttons[0].setAttribute('onclick', 'editComment(this)')
+    buttons[1].setAttribute('onclick', 'deleteComment(this)')
+    buttons[0].innerHTML = 'Edit'
+    buttons[1].innerHTML = 'Delete'
+    axios.get(`/comments?_id=${commentId}`).then((res) => {
+        e.parentElement.querySelector('span').innerHTML = moment(res.data.updatedAt).format('LLL')
     })
+
 }
 
 // delete comment
