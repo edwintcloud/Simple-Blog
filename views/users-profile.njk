@@ -1,6 +1,7 @@
 {% extends "index.njk" %}
 
 {% block body %}
+{% if session.userId %}
 <div class="card">
     <section class="hero is-light">
     <div class="hero-body">
@@ -16,7 +17,21 @@
             <figure class="image is-128x128" style="margin: 40px auto 20px auto;">
               <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
             </figure>
-            <a class="button is-info upload-btn" style="margin-bottom:40px;">Upload</a>
+            <form id="avatar-upload" action="/users/profile/upload?_id={{ session.userId }}" enctype="multipart/form-data" method="post">
+            <div class="file is-centered is-info is-small" style="margin-bottom:20px;">
+              <label class="file-label">
+                <input class="file-input" type="file" name="avatar" onchange="document.getElementById('avatar-upload').submit();">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Upload
+                  </span>
+                </span>
+              </label>
+            </div>
+            </form>
         </div>
         <div class="column">
             <nav class="panel" id="user-activity-panel" style="margin:50px 40px 20px 40px;">
@@ -31,4 +46,8 @@
         </div>
     </div>
 </div>
+{% else %}
+    <p>You are not currently logged in!</p>
+{% endif %}
+
 {% endblock %}

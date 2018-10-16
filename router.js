@@ -36,6 +36,7 @@ router.post('/users', users.create)
 router.post('/users/login', users.login)
 router.post('/users/logout', users.logout)
 router.get('/users/profile', users.profile)
+router.post('/users/profile/upload', users.upload)
 
 // api routes
 router.get('/api/comments', api.getComments)

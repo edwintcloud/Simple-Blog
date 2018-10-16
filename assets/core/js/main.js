@@ -377,3 +377,7 @@ function searchPosts(term) {
         }
     })
 }
+
+function uploadFile(e) {
+    console.log(e.files)
+}
