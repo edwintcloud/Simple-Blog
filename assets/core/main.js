@@ -276,7 +276,6 @@ function addComment() {
 
 // new comment button action
 function newCommentBtn() {
-    cancelEditComment()
     document.getElementById('add-comment').scrollIntoView()
     document.querySelector('#add-comment textarea').focus()
 }
@@ -287,6 +286,7 @@ function editComment(e) {
     const commentId = e.getAttribute('comment-id')
     e.closest('p').querySelectorAll('span')[1].innerHTML = `<textarea class="textarea" name="content">${comment}</textarea>`
     const buttons = e.parentElement.querySelectorAll('a')
+    e.parentElement.querySelector('span').innerHTML = ''
     buttons[0].removeAttribute('onclick')
     buttons[1].removeAttribute('onclick')
     buttons[0].innerHTML = 'Cancel'
@@ -313,7 +313,7 @@ function cancelEditComment(e) {
     buttons[0].innerHTML = 'Edit'
     buttons[1].innerHTML = 'Delete'
     axios.get(`/comments?_id=${commentId}`).then((res) => {
-        e.parentElement.querySelector('span').innerHTML = moment(res.data.updatedAt).format('LLL')
+        e.parentElement.querySelector('span').innerHTML = '· ' + moment(res.data.updatedAt).format('LLL')
     })
 
 }

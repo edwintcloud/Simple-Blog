@@ -6,10 +6,10 @@
     <p class="panel-heading">
         Edit Post
     </p>
-    <div class="panel-block" style="height:600px;">
+    <div class="panel-block" style="height:450px;">
         <input type="hidden" name="author" value="{{ session.screenName }}">
         <input type="hidden" name="id" value="{{ post._id }}">
-        <div class="container">
+        <div style="width: 90%;margin-left: auto;margin-right: auto;">
             <div class="field">
                 <label class="label">Title</label>
                 <div class="control">
@@ -19,7 +19,7 @@
             <div class="field">
                 <label class="label">Content</label>
                 <div class="control">
-                    <textarea class="textarea" name="content" style="height: 300px;">{{ post.content }}</textarea>
+                    <textarea class="textarea" name="content" style="height: 250px;">{{ post.content }}</textarea>
                 </div>
             </div>
             <div class="field is-grouped is-pulled-right">
@@ -36,11 +36,11 @@
 </nav>
 {% else %}
 <nav class="panel" id="new-post-panel">
-    <input type="hidden" name="author" value="{{ session.screenName }}">
     <p class="panel-heading">
     Edit Post
     </p>
     <div class="panel-block" style="height:300px;">
+        <input type="hidden" name="author" value="{{ session.screenName }}">
         <div class="container has-text-centered is-size-3">
             Your session has expired. Please <a onclick="showModal('login-modal')">login</a>!
         </div>

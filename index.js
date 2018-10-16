@@ -5,7 +5,7 @@ import nunjucks from 'nunjucks'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import mongoose from 'mongoose'
-import dateFilter from 'nunjucks-date-filter'
+import moment from 'moment'
 const MongoStore = require('connect-mongo')(session)
 const app = express()
 
@@ -35,7 +35,9 @@ var env = nunjucks.configure('views', {
     autoescape: true,
     express: app
 })
-env.addFilter('date', dateFilter)
+env.addFilter('date', (str, format) => {
+    return moment(str).format(format)
+})
 
 
 // configure express
