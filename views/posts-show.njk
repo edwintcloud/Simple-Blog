@@ -12,8 +12,10 @@
                     <nav class="level" style="margin-left:5px;">
                         <div class="level-left">
                             <div class="level-item">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                                <span class="icon is-left">
+                                    <object style="border-radius:50%;width:24px;" data="/uploaded/{{ post.author }}.png" type="image/png">
+                                      <img class="is-rounded" style="border-radius:50%;width:24px;" src="/core/images/avatar.png" alt="example">
+                                    </object>
                                 </span>
                                 <span style="margin-left: 8px;">by: {{ post.author }} on {{ post.updatedAt | date('MMM D') }} at {{ post.updatedAt | date('LT')}}</span>
                                 {% if post.author == session.screenName %}

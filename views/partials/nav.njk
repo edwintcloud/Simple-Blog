@@ -19,7 +19,9 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                   <a class="button is-link navbar-link is-rounded is-outlined" id="user-nav-btn">
                       <span class="icon">
-                        <i class="fas fa-user"></i>
+                          <object style="border-radius:50%;width:24px;" data="/uploaded/{{ session.screenName }}.png" type="image/png">
+                                <i class="fas fa-user"></i>
+                          </object>
                       </span>
                     <span> {{ session.screenName }} </span>
                   </a>
