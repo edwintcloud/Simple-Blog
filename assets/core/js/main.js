@@ -377,3 +377,13 @@ function searchPosts(term) {
         }
     })
 }
+
+function verifyLink(e) {
+    axios.get(e.getAttribute('href')).then((res) => {
+        if(res.data == 'deleted') {
+            e.parentElement.innerHTML = `<span style="color:red;">Deleted</span>`
+        } else {
+            window.location.href = e.getAttribute('href')
+        }
+    })
+}

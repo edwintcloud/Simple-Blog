@@ -49,7 +49,7 @@
                           <td>{{ action.date | date('LLL') }}</td>
                           <td>{{ action.description }}</td>
                           {% if action.postId %}
-                              <td><a href="/posts?_id={{ action.postId | string }}">See</a></td>
+                              <td><a href="/posts?_id={{ action.postId | string }}" onclick="event.preventDefault();verifyLink(this);">See</a></td>
                           {% endif %}
                         </tr>
                     {% endfor %}

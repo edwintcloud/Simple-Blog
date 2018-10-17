@@ -14,6 +14,7 @@ exports.get = (req, res) => {
             }
 
             Post.find({ _id: req.query._id }).limit(1).then((posts) => {
+                if(posts.length < 1) return res.send('deleted')
                 Comment.find({ postId: posts[0]._id }).then((comments) => {
                     res.render('posts-show', { post: posts[0], comments: comments })
                 })
