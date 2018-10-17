@@ -72,13 +72,13 @@ exports.upload = (req, res) => {
                         description: "Avatar updated"
                     }
                     User.updateOne({ screenName: req.session.screenName }, { $push: { activity: action } }).then((result) => {
-                        res.redirect(`/users/profile?_id=${req.query._id}`)
+                        res.redirect(`/users/profile`)
                     })
                 }).catch((e) => {
                     console.error(e.message)
                 })
             } else {
-                res.redirect(`/users/profile?_id=${req.query._id}`)
+                res.redirect(`/users/profile`)
             }
         })
 
