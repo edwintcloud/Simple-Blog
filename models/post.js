@@ -9,9 +9,7 @@ const PostSchema = new mongoose.Schema({
 
 // create text index to search with
 PostSchema.index({
-    title: 'text',
-    content: 'text',
-    author: 'text'
+    '$**': 'text'
 })
 
 module.exports = mongoose.model('Post', PostSchema)
