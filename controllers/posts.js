@@ -1,6 +1,7 @@
 // import our model
 import Post from '../models/post'
 import Comment from '../models/comment'
+import User from '../models/user'
 
 // get all our post and render the index
 exports.get = (req, res) => {
@@ -44,7 +45,13 @@ exports.get = (req, res) => {
 // create a new post
 exports.create = (req, res) => {
     Post.create(req.body).then((post) => {
-        res.status(200).send(post)
+        const action = {
+            description: "Post created",
+            postId: post._id
+        }
+        User.updateOne({ screenName: req.session.screenName }, { $push: { activity: action } }).then((userResult) => {
+            res.status(200).send(post)
+        })
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)
@@ -80,7 +87,13 @@ exports.update = (req, res) => {
     }
 
     Post.updateOne({ _id: req.query._id }, req.body).then((result) => {
-        res.status(200).send(result)
+        const action = {
+            description: "Post updated",
+            postId: req.query._id
+        }
+        User.updateOne({ screenName: req.session.screenName }, { $push: { activity: action } }).then((userResult) => {
+            res.status(200).send(result)
+        })
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)

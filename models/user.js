@@ -4,13 +4,28 @@ import bcrypt from 'bcrypt'
 const UserSchema = new mongoose.Schema({
     screenName: String,
     email: String,
-    password: String
+    password: String,
+    activity: [{
+        description: String,
+        postId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post'
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 })
 
 // Hash the password before saving
 UserSchema.pre('save', async function() {
     try{
         this.password = await bcrypt.hash(this.password, 10)
+        const action = {
+            description: "User Created"
+        }
+        this.activity.push(action)
     } catch(e) {
         return console.error(e.message)
     }

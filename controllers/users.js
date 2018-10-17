@@ -8,7 +8,13 @@ const uploader = multer({ dest: 'uploads/', storage: multer.memoryStorage() }).s
 
 // gets a users profile by id
 exports.profile = (req, res) => {
-    res.render('users-profile')
+    if(req.session.screenName) {
+        User.find({ screenName: req.session.screenName }).limit(1).then((users) => {
+            res.render('users-profile', { activity: users[0].activity.reverse() })
+        })
+    } else {
+        res.render('users-profile')
+    }
 }
 
 // creates a user
@@ -58,17 +64,19 @@ exports.upload = (req, res) => {
             }
             const ext = /(?:\.([^.]+))?$/.exec(req.file.originalname)[1]
             if(ext == 'png' || ext == 'jpg') {
-                console.log(req.file.originalname)
                 jimp.read(req.file.buffer).then((file) => {
-                    return file
-                        .resize(128, 128)
+                    file.resize(128, 128)
                         .quality(60)
-                        .write(`assets/uploaded/${req.query._id}.png`)
-
+                        .write(`assets/uploaded/${req.session.screenName}.png`)
+                    const action = {
+                        description: "Avatar updated"
+                    }
+                    User.updateOne({ screenName: req.session.screenName }, { $push: { activity: action } }).then((result) => {
+                        res.redirect(`/users/profile?_id=${req.query._id}`)
+                    })
                 }).catch((e) => {
                     console.error(e.message)
                 })
-                res.redirect(`/users/profile?_id=${req.query._id}`)
             } else {
                 res.redirect(`/users/profile?_id=${req.query._id}`)
             }

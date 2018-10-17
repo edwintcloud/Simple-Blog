@@ -1,4 +1,5 @@
 import Comment from '../models/comment'
+import User from '../models/user'
 
 // get all comments or if id specified get one
 exports.get = (req, res) => {
@@ -9,7 +10,7 @@ exports.get = (req, res) => {
         if(!/^[0-9a-fA-F]{24}$/.test(req.query._id)) {
             return res.status(404).render('404', { reason: 'Invalid Post Id or query term!' })
         }
-        
+
         Comment.find({ _id: req.query._id }).limit(1).then((comments) => {
             res.status(200).send(comments[0])
         }).catch((e) => {
@@ -29,7 +30,13 @@ exports.get = (req, res) => {
 // create a new comment
 exports.create = (req, res) => {
     Comment.create(req.body).then((comment) => {
-        res.status(200).send(comment)
+        const action = {
+            description: "Comment created",
+            postId: comment.postId
+        }
+        User.updateOne({ screenName: req.session.screenName }, { $push: { activity: action } }).then((userResult) => {
+            res.status(200).send(comment)
+        })
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)
@@ -45,7 +52,15 @@ exports.update = (req, res) => {
     }
 
     Comment.updateOne({ _id: req.query._id }, req.body).then((result) => {
-        res.status(200).send(result)
+        Comment.find({ _id: req.query._id }).limit(1).then((comments) => {
+            const action = {
+                description: "Comment updated",
+                postId: comments[0].postId
+            }
+            User.updateOne({ screenName: req.session.screenName }, { $push: { activity: action } }).then((userResult) => {
+                res.status(200).send(result)
+            })
+        })
     }).catch((e) => {
         res.status(400).send(e.message)
         console.error(e.message)

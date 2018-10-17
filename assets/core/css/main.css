@@ -44,6 +44,10 @@
     padding-bottom: 15px;
 }
 
+.table td {
+    border: none;
+}
+
 .upload-btn {
     display: flex;
     margin-left: 36%;

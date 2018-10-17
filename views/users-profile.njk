@@ -15,8 +15,8 @@
     <div class="columns">
         <div class="column is-3">
             <figure class="image is-128x128" style="margin: 40px auto 20px auto;">
-                <object style="border-radius:50%;" data="/uploaded/{{ session.userId }}.png" type="image/png">
-                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="example">
+                <object style="border-radius:50%;" data="/uploaded/{{ session.screenName }}.png" type="image/png">
+                  <img class="is-rounded" style="border-radius:50%;" src="/core/images/avatar.png" alt="example">
                 </object>
             </figure>
             <form id="avatar-upload" action="/users/profile/upload?_id={{ session.userId }}" enctype="multipart/form-data" method="post">
@@ -36,12 +36,30 @@
             </form>
         </div>
         <div class="column">
-            <nav class="panel" id="user-activity-panel" style="margin:50px 40px 20px 40px;">
+            <nav class="panel" id="user-activity-panel" style="margin:40px 40px 20px 40px;">
             <p class="panel-heading">
             Recent Activity
             </p>
-            <div class="panel-block" style="padding-top:20px;padding-bottom:20px;">
-                s
+            <div class="panel-block">
+                <table class="table">
+                  <tbody>
+                {% if activity | length %}
+                    {% for action in activity %}
+                        <tr>
+                          <td>{{ action.date | date('LLL') }}</td>
+                          <td>{{ action.description }}</td>
+                          {% if action.postId %}
+                              <td><a href="/posts?_id={{ action.postId | string }}">See</a></td>
+                          {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                  <td>No Activity to show!</td>
+                </tr>
+                {% endif %}
+                  </tbody>
+                </table>
             </div>
 
             </nav>
