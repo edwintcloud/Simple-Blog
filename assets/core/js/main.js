@@ -256,7 +256,7 @@ function editPost() {
 
 // delete post
 function deletePost() {
-    const id = document.querySelector('#footer-nav-btn .button').getAttribute('post-id')
+    const id = document.querySelector('#footer-nav-btn [post-id]').getAttribute('post-id')
     if(confirm("Are you sure you want to delete this post?")) {
         axios.delete(`/posts?_id=${id}`).then((res) => {
             window.location.href = `/`
@@ -376,8 +376,4 @@ function searchPosts(term) {
             }
         }
     })
-}
-
-function uploadFile(e) {
-    console.log(e.files)
 }

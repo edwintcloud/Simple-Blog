@@ -63,7 +63,7 @@ exports.upload = (req, res) => {
                 res.send('Error while uploading.');
             }
             const ext = /(?:\.([^.]+))?$/.exec(req.file.originalname)[1]
-            if(ext == 'png' || ext == 'jpg') {
+            if(ext == 'png' || ext == 'jpg' || ext == 'jpeg') {
                 jimp.read(req.file.buffer).then((file) => {
                     file.resize(128, 128)
                         .quality(60)
