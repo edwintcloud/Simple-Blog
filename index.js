@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import session from 'express-session'
 import mongoose from 'mongoose'
 import moment from 'moment'
+import favicon from 'express-favicon'
 const MongoStore = require('connect-mongo')(session)
 const app = express()
 
@@ -45,6 +46,7 @@ app.set('view engine', 'njk')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('./assets'))
+app.use(favicon(__dirname + '/assets/core/images/favicon.png'))
 
 // set a virtual path for uploaded files
 app.use('/uploaded', express.static('./assets/uploaded'))
