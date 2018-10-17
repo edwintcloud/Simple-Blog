@@ -116,42 +116,19 @@ function logout() {
     })
 }
 
-// performs input validation on inputs in modal by id
-function inputValid(id) {
-    const data = getInputs(id)
-    var valid = true
-    if(id == 'register-modal') {
-        if(data.password != data.confirmPassword || data.password.length < 6 || data.confirmPassword < 6) {
-            const passwordInput = document.getElementById(id).querySelector(`input[name='password']`)
-            const confirmPasswordInput = document.getElementById(id).querySelector(`input[name='confirmPassword']`)
-            passwordInput.classList.add('is-danger')
-            confirmPasswordInput.classList.add('is-danger')
-            var p = document.createElement('p')
-            if(data.password.length < 6 || data.confirmPassword < 6) {
-                var t = document.createTextNode(`Passwords must be at least 6 digits!`)
-            } else {
-                var t = document.createTextNode(`Passwords must match!`)
-            }
-            p.appendChild(t)
-            p.classList.add('help', 'is-danger')
-            confirmPasswordInput.parentElement.appendChild(p)
-            passwordInput.addEventListener('change', () => {
-                passwordInput.classList.remove('is-danger')
-            })
-            confirmPasswordInput.addEventListener('change', () => {
-                confirmPasswordInput.classList.remove('is-danger')
-                if(document.contains(confirmPasswordInput.parentElement.querySelector('p'))) {
-                    confirmPasswordInput.parentElement.querySelector('p').remove()
-                }
-            })
-            valid = false
-        }
-        for(var key in data) {
-            if(data[key].length < 3 && key != 'password' && key != 'confirmPassword') {
-                const input = document.getElementById(id).querySelector(`input[name='${key}']`)
+// register user
+function register() {
+    const inputs = document.querySelectorAll(`#register-modal input`)
+    for(var i = 0;i < inputs.length;i++) {
+        inputs[i].dispatchEvent(new Event('change'))
+    }
+    axios.post(`/users`, getInputs('register-modal')).then((res) => {
+        if(res.data.reasons) {
+            for(var i = 0;i < res.data.reasons.length;i++) {
+                const input = document.getElementById('register-modal').querySelector(`input[name='${Object.keys(res.data.reasons[i])[0]}']`)
                 input.classList.add('is-danger')
                 var p = document.createElement('p')
-                var t = document.createTextNode(`Please enter at least 4 characters!`)
+                var t = document.createTextNode(`${Object.values(res.data.reasons[i])[0]}`)
                 p.appendChild(t)
                 p.classList.add('help', 'is-danger')
                 input.parentElement.appendChild(p)
@@ -161,79 +138,11 @@ function inputValid(id) {
                         input.parentElement.querySelector('p').remove()
                     }
                 })
-                valid = false
-            } else if(key == 'email'){
-                if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
-                    const input = document.getElementById(id).querySelector(`input[name='${key}']`)
-                    input.classList.add('is-danger')
-                    var p = document.createElement('p')
-                    var t = document.createTextNode(`Please enter a valid email!`)
-                    p.appendChild(t)
-                    p.classList.add('help', 'is-danger')
-                    input.parentElement.appendChild(p)
-                    input.addEventListener('change', () => {
-                        input.classList.remove('is-danger')
-                        if(document.contains(input.parentElement.querySelector('p'))) {
-                            input.parentElement.querySelector('p').remove()
-                        }
-                    })
-                    valid = false
-                }
-            }
-        }
-    }
-    if(id == 'login-modal') {
-
-    }
-    return valid
-}
-
-// register user
-function register() {
-    const inputs = document.querySelectorAll(`#register-modal input`)
-    for(var i = 0;i < inputs.length;i++) {
-        inputs[i].dispatchEvent(new Event('change'))
-    }
-    if(inputValid('register-modal')) {
-    axios.post(`/users`, getInputs('register-modal')).then((res) => {
-        if(res.data.reasons) {
-            for(var i = 0;i < res.data.reasons.length;i++) {
-                if(res.data.reasons[i].includes('Email')) {
-                    const emailInput = document.getElementById('register-modal').querySelector(`input[name='email']`)
-                    emailInput.classList.add('is-danger')
-                    var p = document.createElement('p')
-                    var t = document.createTextNode(`${res.data.reasons[i]}`)
-                    p.appendChild(t)
-                    p.classList.add('help', 'is-danger')
-                    emailInput.parentElement.appendChild(p)
-                    emailInput.addEventListener('change', () => {
-                        emailInput.classList.remove('is-danger')
-                        if(document.contains(emailInput.parentElement.querySelector('p'))) {
-                            emailInput.parentElement.querySelector('p').remove()
-                        }
-                    })
-                }
-                if(res.data.reasons[i].includes('Screen')) {
-                    const snInput = document.getElementById('register-modal').querySelector(`input[name='screenName']`)
-                    snInput.classList.add('is-danger')
-                    var p = document.createElement('p')
-                    var t = document.createTextNode(`${res.data.reasons[i]}`)
-                    p.appendChild(t)
-                    p.classList.add('help', 'is-danger')
-                    snInput.parentElement.appendChild(p)
-                    snInput.addEventListener('change', () => {
-                        snInput.classList.remove('is-danger')
-                        if(document.contains(snInput.parentElement.querySelector('p'))) {
-                            snInput.parentElement.querySelector('p').remove()
-                        }
-                    })
-                }
             }
         } else {
             location.reload()
         }
     })
-}
 }
 
 // creates new post

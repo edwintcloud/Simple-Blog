@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
+import validator from 'validator'
 
 const UserSchema = new mongoose.Schema({
     screenName: String,
@@ -34,16 +35,40 @@ UserSchema.pre('save', async function() {
 // register user
 UserSchema.statics.register = async function(data) {
     try {
-        let member = await this.find({ $or: [{ email: data.email }, { screenName: data.screenName }] }).limit(1)
         var reasons = []
+        for(var key in data) {
+            if(data[key] == '') {
+                let obj = {}
+                obj[key] = `Please enter a value!`
+                reasons.push(obj)
+            }
+        }
+        if(reasons.length > 0) return { reasons: reasons }
+        if(!validator.equals(data.password, data.confirmPassword)) {
+            reasons.push({ confirmPassword: `Passwords must match!` })
+        }
+        if(!validator.isEmail(data.email)) {
+            reasons.push({ email: `Please enter a valid email!` })
+        }
+        if(data.password.length < 6) {
+            reasons.push({ password: `Password must be at least 6 characters long!` })
+        }
+        if(data.screenName.length < 6) {
+            reasons.push({ screenName: `Screen Name must be at least 6 characters long!` })
+        }
+
+        let member = await this.find({ $or: [{ email: data.email }, { screenName: data.screenName }] }).limit(1)
+
         if(member.length < 1) {
-            return await this.create(data)
+            if(reasons.length < 1) {
+                return await this.create(data)
+            }
         } else {
             if(member[0].email == data.email) {
-                reasons.push(`Email already registered! If you have forgotten your password, please contact the administrator.`)
+                reasons.push({ email: `Email already registered! If you have forgotten your password, please contact the administrator.` })
             }
             if(member[0].screenName == data.screenName) {
-                reasons.push(`That Screen Name is already taken!`)
+                reasons.push({ screenName: `That Screen Name is already taken!` })
             }
         }
         return { reasons: reasons }
