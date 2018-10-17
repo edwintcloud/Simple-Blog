@@ -46,7 +46,7 @@ describe('Posts', () => {
 
     // NEW TEST
     it('should render create new Post form on /posts/new GET', (done) => {
-        chai.request(app).get(`/post/new`).end((err, res) => {
+        chai.request(app).get(`/posts/new`).end((err, res) => {
             res.should.have.status(200)
             res.should.be.html
             done()
