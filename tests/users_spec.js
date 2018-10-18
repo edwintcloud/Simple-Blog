@@ -8,7 +8,8 @@ const should = chai.should()
 const testUser = {
     "screenName": "chaiTestUser",
     "email": "email@asd.com",
-    "password": "password"
+    "password": "password",
+    "confirmPassword": "password"
 }
 
 // setup chai to use http assertion
