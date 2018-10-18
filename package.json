@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require babel-core/register --exit tests/*",
-    "start": "babel-watch -w assets -w views index.js"
+    "start": "babel-watch -x assets -w views index.js"
   },
   "babel": {
     "presets": [

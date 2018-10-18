@@ -244,10 +244,12 @@ function searchPosts(term) {
             const curUser = document.getElementById('posts-search').getAttribute('current-user')
             document.getElementById('posts').innerHTML = ''
             for(var i = 0;i < res.data.length;i++) {
+                var c = randomColor(100, 20, 0.2, res.data.length)
+                var result = `background-color:${c[i]};`
                 document.getElementById('posts').innerHTML += `
                     <div class="column is-half">
                     <div class="card">
-                    <header class="card-header has-background-light">
+                    <header class="card-header" style="${result}">
                     <section class="hero">
                     <div class="hero-body">
                     <div class="container">
@@ -274,7 +276,7 @@ function searchPosts(term) {
                     </div>
                     </div>
                     <footer class="card-footer">
-                    <a href="/posts?_id={{res.data[i]._id}}" class="card-footer-item">View</a>
+                    <a href="/posts?_id=${res.data[i]._id}" class="card-footer-item" background='style=${result}' onclick="event.preventDefault();viewPost(this);">View</a>
                     </footer>
                     </div>
                     </div>
@@ -301,4 +303,16 @@ function viewPost(e) {
     axios.post(`/posts?background=true`, e.getAttribute('background')).then((res) => {
         window.location.href = e.getAttribute('href')
     })
+}
+
+function randomColor (saturation, lightness, alpha, amount) {
+  let colors = []
+  let huedelta = Math.trunc(360 / amount)
+
+  for (let i = 0; i < amount; i++) {
+    let hue = i * huedelta
+    colors.push(`hsla(${hue},${saturation}%,${lightness}%,${alpha})`)
+  }
+
+  return colors
 }
