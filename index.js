@@ -39,7 +39,28 @@ var env = nunjucks.configure('views', {
 env.addFilter('date', (str, format) => {
     return moment(str).format(format)
 })
+env.addFilter('background', (str, index, length) => {
+    var result = ""
+    if('image' in str) {
+        // return image as background style tag
+    } else {
+        let c = randomColor(100, 20, 0.2, length)
+        result = `background-color:${c[index]};`
+    }
+    return result
+})
 
+function randomColor (saturation, lightness, alpha, amount) {
+  let colors = []
+  let huedelta = Math.trunc(360 / amount)
+
+  for (let i = 0; i < amount; i++) {
+    let hue = i * huedelta
+    colors.push(`hsla(${hue},${saturation}%,${lightness}%,${alpha})`)
+  }
+
+  return colors
+}
 
 // configure express
 app.set('view engine', 'njk')

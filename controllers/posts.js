@@ -45,6 +45,10 @@ exports.get = (req, res) => {
 
 // create a new post
 exports.create = (req, res) => {
+    if(req.query.background) {
+        req.session.background = req.body['style']
+        return res.status(200).send()
+    }
     Post.create(req.body).then((post) => {
         const action = {
             description: "Post created",

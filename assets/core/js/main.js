@@ -296,3 +296,9 @@ function verifyLink(e) {
         }
     })
 }
+
+function viewPost(e) {
+    axios.post(`/posts?background=true`, e.getAttribute('background')).then((res) => {
+        window.location.href = e.getAttribute('href')
+    })
+}
