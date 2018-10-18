@@ -56,3 +56,81 @@
     justify-content: center;
     align-items: center;
 }
+
+.button.is-success.is-outlined {
+  background-color: transparent;
+  border-color: #9bddb5;
+  color: #9bddb5;
+}
+
+.button.is-link,
+.file-cta {
+  background-color: #9bb7dd;
+  border-color: transparent;
+  color: #3B3B3B;
+}
+
+.button.is-danger.is-outlined {
+  background-color: transparent;
+  border-color: #dd9b9b;
+  color: #dd9b9b;
+}
+
+.button.is-danger.is-outlined:hover, .button.is-danger.is-outlined:focus {
+  background-color: #dd9b9b;
+  border-color: #dd9b9b;
+  color: #3B3B3B;
+}
+
+.button.is-link:hover, .button.is-link.is-hovered {
+  background-color: #9bb7dd;
+  border-color: transparent;
+  color: #3B3B3B;
+}
+
+.button.is-success.is-outlined:hover, .button.is-success.is-outlined:focus {
+  background-color: #9bddb5;
+  border-color: #9bddb5;
+  color: #3B3B3B;
+}
+
+.button.is-link.is-outlined {
+  background-color: transparent;
+  border-color: #9bb7dd;
+  color: #9bb7dd;
+}
+
+.button.is-link.is-outlined:hover, .button.is-success.is-outlined:focus {
+  background-color: #9bb7dd;
+  border-color: #9bb7dd;
+  color: #3B3B3B;
+}
+
+.modal-card-head,
+.modal-card-body,
+.modal-card-foot,
+.modal-card-body input
+ {
+    background-color: #363636;
+    border-style: none;
+}
+
+.modal-card-title,
+.modal-card-body input,
+.modal-card-body input::placeholder,
+.modal-card-body input:focus
+{
+    color: #fff;
+}
+
+.modal-card-body input {
+    box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
+}
+
+input.is-danger {
+  box-shadow: 0 0 0 0.125em rgba(255, 56, 96, 0.25);
+}
+
+.panel-heading {
+    background-color: rgba(76, 76, 76, 0.25);
+}

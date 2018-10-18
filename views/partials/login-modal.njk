@@ -1,11 +1,11 @@
-<div class="modal has-background-black" id="login-modal">
+<div class="modal" id="login-modal">
     <div class="modal-background"></div>
     <div class="modal-card">
-        <header class="modal-card-head has-background-grey-lighter">
+        <header class="modal-card-head">
             <p class="modal-card-title">Login</p>
             <button class="delete" aria-label="close" onclick="hideModal('login-modal')"></button>
         </header>
-        <section class="modal-card-body has-background-grey-lighter">
+        <section class="modal-card-body">
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
                     <input class="input" type="email" placeholder="Email" name="email" autocomplete="email">
@@ -23,9 +23,9 @@
                 </p>
             </div>
         </section>
-        <footer class="modal-card-foot buttons is-right has-background-grey-lighter">
+        <footer class="modal-card-foot buttons is-right">
             <p class="control">
-              <button class="button is-success" onclick="login()">
+              <button class="button is-success is-outlined" onclick="login()">
                 <span class="icon">
                   <i class="fas fa-sign-in-alt"></i>
                 </span>
