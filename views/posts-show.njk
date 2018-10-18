@@ -32,7 +32,7 @@
     </header>
     <div class="card-content">
         <div class="content">
-            {{ post.content }}
+            {{ post.content | striptags(true) | escape | nl2br}}
         </div>
     </div>
     <footer class="card-footer" style="flex-direction: column;">
