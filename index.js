@@ -14,8 +14,8 @@ const app = express()
 import router from './router'
 
 // connect to database
-mongoose.connect(`mongodb://localhost/simple-blog` || process.env.MONGODB_URI, { useNewUrlParser: true })
-const db = mongoose.connection
+mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/simple-blog`, { useNewUrlParser: true })
+const db = mongoose.connection    
 db.on('error', console.error.bind(console, 'connection error:'))
 
 // setup express session
@@ -76,7 +76,7 @@ app.use('/uploaded', express.static('./assets/uploaded'))
 app.use(router)
 
 // start our app and listen for requests
-app.listen('3000' || process.env.PORT, () => {
+app.listen(process.env.PORT || '3000', () => {
     console.log('App started on port 3000')
 })
 
