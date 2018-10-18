@@ -1,5 +1,8 @@
-# Simple Blog
-A simple blog in node.js
+# Simple-Blog
+A minimalistic blog cms written in node.js
+
+## Heroku
+This project is hosted on Heroku [here](https://simple-blog-ec.herokuapp.com/).
 
 ## Running Locally
 Make sure you have [Node.js](http://nodejs.org/) >= 10.11.0 installed.
